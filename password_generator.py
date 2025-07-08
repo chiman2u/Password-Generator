@@ -1,7 +1,7 @@
 import string
 import random
 
-def generate_password(length = 10, upper = True, lower = True, digits = True, symbol = True): #Default values
+def generate_password(length = 10, upper = True, lower = True, digits = True, symbol = True): #Default value
     """
     Generate a random password based on the selected character types.
 
