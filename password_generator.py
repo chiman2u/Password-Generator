@@ -1,3 +1,4 @@
+import argparse
 import string
 import random
 
@@ -40,4 +41,23 @@ def generate_password(length = 10, upper = True, lower = True, digits = True, sy
 
 
 if __name__ == "__main__":
-    print("Generated Password:", generate_password(16))
+    parser = argparse.ArgumentParser(description="Generate a secure random password.")
+    parser.add_argument("-l", "--length", type=int, default=10, help="Length of the password (default: 10)")
+    parser.add_argument("--no-upper", action="store_true", help="Exclude uppercase letters")
+    parser.add_argument("--no-lower", action="store_true", help="Exclude lowercase letters")
+    parser.add_argument("--no-digits", action="store_true", help="Exclude digits")
+    parser.add_argument("--no-symbols", action="store_true", help="Exclude symbols")
+
+    args = parser.parse_args()
+
+    try:
+        password = generate_password(
+            length=args.length,
+            upper=not args.no_upper,
+            lower=not args.no_lower,
+            digits=not args.no_digits,
+            symbol=not args.no_symbols
+        )
+        print("Generated Password:", password)
+    except ValueError as e:
+        print("Error:", e)
