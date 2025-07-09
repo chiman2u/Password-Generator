@@ -2,6 +2,8 @@ import argparse
 import string
 import random
 
+import pyperclip
+
 def generate_password(length = 10, upper = True, lower = True, digits = True, symbol = True): #Default values
     """
     Generate a random password based on the selected character types.
@@ -47,6 +49,7 @@ if __name__ == "__main__":
     parser.add_argument("--no-lower", action="store_true", help="Exclude lowercase letters")
     parser.add_argument("--no-digits", action="store_true", help="Exclude digits")
     parser.add_argument("--no-symbols", action="store_true", help="Exclude symbols")
+    parser.add_argument("--copy", action="store_true", help="Copy password to clipboard")
 
     args = parser.parse_args()
 
@@ -58,6 +61,11 @@ if __name__ == "__main__":
             digits=not args.no_digits,
             symbol=not args.no_symbols
         )
+
         print("Generated Password:", password)
+        if args.copy:
+            pyperclip.copy(password)
+            print ("Password Copied to clipboard!")
+
     except ValueError as e:
         print("Error:", e)
