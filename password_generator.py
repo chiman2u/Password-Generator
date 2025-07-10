@@ -43,7 +43,7 @@ def generate_password(length = 10, upper = True, lower = True, digits = True, sy
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Generate a secure random password.")
+    parser = argparse.ArgumentParser(description="Generate a secure random password.") #Arguments to that can be inputted into the CLI
     parser.add_argument("-l", "--length", type=int, default=10, help="Length of the password (default: 10)")
     parser.add_argument("--no-upper", action="store_true", help="Exclude uppercase letters")
     parser.add_argument("--no-lower", action="store_true", help="Exclude lowercase letters")
