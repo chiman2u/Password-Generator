@@ -1,6 +1,7 @@
 import argparse
 import string
 import random
+import sys
 
 import pyperclip
 
@@ -51,21 +52,42 @@ if __name__ == "__main__":
     parser.add_argument("--no-symbols", action="store_true", help="Exclude symbols")
     parser.add_argument("--copy", action="store_true", help="Copy password to clipboard")
 
-    args = parser.parse_args()
+    if len(sys.argv) == 1:
+        print("Interactive Password Generator")
+        try:
+            length = int(input("Password length (e.g. 12): "))
+            upper = input("Include UPPERCASE letters? (y/n): ").lower().startswith("y")
+            lower = input("Include lowercase letters? (y/n): ").lower().startswith("y")
+            digits = input("Include digits? (y/n): ").lower().startswith("y")
+            symbols = input("Include symbols? (y/n): ").lower().startswith("y")
+            copy = input("Copy to clipboard? (y/n): ").lower().startswith("y")
 
-    try:
-        password = generate_password(
-            length=args.length,
-            upper=not args.no_upper,
-            lower=not args.no_lower,
-            digits=not args.no_digits,
-            symbol=not args.no_symbols
-        )
+            password = generate_password(length, upper, lower, digits, symbols)
+            print("Generated Password:", password)
 
-        print("Generated Password:", password)
-        if args.copy:
-            pyperclip.copy(password)
-            print ("Password Copied to clipboard!")
+            if copy:
+                pyperclip.copy(password)
+                print("Password copied to clipboard!")
 
-    except ValueError as e:
-        print("Error:", e)
+        except ValueError as e:
+            print("Error:", e)
+    else:
+
+        args = parser.parse_args()
+
+        try:
+            password = generate_password(
+                length=args.length,
+                upper=not args.no_upper,
+                lower=not args.no_lower,
+                digits=not args.no_digits,
+             symbol=not args.no_symbols
+            )
+
+            print("Generated Password:", password)
+            if args.copy:
+                pyperclip.copy(password)
+                print ("Password Copied to clipboard!")
+
+        except ValueError as e:
+            print("Error:", e)
