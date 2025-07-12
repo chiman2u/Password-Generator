@@ -52,7 +52,7 @@ if __name__ == "__main__":
     parser.add_argument("--no-symbols", action="store_true", help="Exclude symbols")
     parser.add_argument("--copy", action="store_true", help="Copy password to clipboard")
 
-    if len(sys.argv) == 1:
+    if len(sys.argv) == 1: #If no argument is passed into the command line start interactive generator
         print("Interactive Password Generator")
         try:
             length = int(input("Password length (e.g. 12): "))
